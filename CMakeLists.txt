@@ -73,3 +73,4 @@ target_sources(${PROJECT_NAME}
 # ##############################################################################
 
 add_subdirectory(test)
+target_link_libraries(ld-sample-app-cpp PRIVATE launchdarkly::server)

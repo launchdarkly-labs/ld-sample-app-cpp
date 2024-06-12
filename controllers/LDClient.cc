@@ -5,6 +5,9 @@
 #include <iostream>
 #include "LDClient.h"
 
+using namespace launchdarkly;
+using namespace launchdarkly::server_side;
+
 LDClient *LDClient::instance = nullptr;
 
 LDClient::LDClient()
