@@ -11,14 +11,15 @@ LDClient::LDClient()
 {
     const char *sdk_key = getSdkKey();
 
-    auto config = ConfigBuilder(sdk_key).build();
+    auto config = ConfigBuilder(sdk_key).Build();
     if (!config)
     {
         std::cout << "*** config is invalid: " << config.error() << std::endl;
         std::exit(1);
     }
 
-    auto client = Client(std::move(*config)) auto start_result = client.StartAsync();
+    auto client = Client(std::move(*config));
+    auto start_result = client.StartAsync();
     auto const status = start_result.wait_for(std::chrono::milliseconds(INIT_TIMEOUT_MILLISECONDS));
 
     if (status == std::future_status::ready)
