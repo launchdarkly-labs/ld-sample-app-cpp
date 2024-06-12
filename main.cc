@@ -1,5 +1,9 @@
-// #include <launchdarkly/server_side/client.hpp>
 #include <drogon/drogon.h>
+
+#include <cstring>
+#include <iostream>
+
+#define FEATURE_FLAG_KEY "test-flag"
 
 int main()
 {
