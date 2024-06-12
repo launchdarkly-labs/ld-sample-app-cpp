@@ -5,7 +5,7 @@
 #include <iostream>
 #include "LDClient.h"
 
-static LDClient *LDClient::instance - nullptr;
+static LDClient *LDClient::instance = nullptr;
 
 LDClient::LDClient()
 {
