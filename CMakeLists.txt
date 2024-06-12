@@ -29,7 +29,8 @@ add_executable(${PROJECT_NAME} main.cc)
 #
 # and comment out the following lines
 find_package(Drogon CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+find_package(launchdarkly REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon launchdarkly::server)
 
 # ##############################################################################
 
@@ -73,4 +74,3 @@ target_sources(${PROJECT_NAME}
 # ##############################################################################
 
 add_subdirectory(test)
-target_link_libraries(${PROJECT_NAME} PRIVATE launchdarkly::server)
