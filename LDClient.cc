@@ -1,10 +1,11 @@
-// #include <launchdarkly/context_builder.hpp>
-// #include <launchdarkly/server_side/client.hpp>
-// #include <launchdarkly/server_side/config/config_builder.hpp>
-
+#include <launchdarkly/context_builder.hpp>
+#include <launchdarkly/server_side/client.hpp>
+#include <launchdarkly/server_side/config/config_builder.hpp>
 #include <cstring>
 #include <iostream>
 #include "LDClient.h"
+
+static LDClient *LDClient::instance - nullptr;
 
 LDClient::LDClient()
 {
