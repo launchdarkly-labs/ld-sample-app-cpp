@@ -52,7 +52,7 @@ const char *LDClient::getSdkKey()
     std::exit(1);
 }
 
-static LDClient *LDClient::getInstance()
+LDClient *LDClient::getInstance()
 {
     if (!instance)
     {
