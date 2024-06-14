@@ -19,9 +19,12 @@ endif ()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+file(GLOB SOURCES
+    *.cc
+    *.h)
+
 add_executable(${PROJECT_NAME} main.cc)
 
-add_subdirectory(ld)
 # ##############################################################################
 # If you include the drogon source code locally in your project, use this method
 # to add drogon 
@@ -30,7 +33,7 @@ add_subdirectory(ld)
 #
 # and comment out the following lines
 find_package(Drogon CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon ld)
+target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
 
 # ##############################################################################
 
@@ -60,8 +63,12 @@ drogon_create_views(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/views
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
                                    ${CMAKE_CURRENT_SOURCE_DIR}/models)
+
+# target_link_libraries(${PROJECT_NAME} PRIVATE launchdarkly::server_side)
+
 target_sources(${PROJECT_NAME}
                PRIVATE
+               ${SOURCES}
                ${SRC_DIR}
                ${CTL_SRC}
                ${FILTER_SRC}
