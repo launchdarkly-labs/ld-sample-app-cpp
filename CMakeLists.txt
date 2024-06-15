@@ -32,8 +32,10 @@ add_executable(${PROJECT_NAME} main.cc)
 # target_link_libraries(${PROJECT_NAME} PRIVATE drogon)
 #
 # and comment out the following lines
+
+add_subdirectory(cpp-sdks)
 find_package(Drogon CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon launchdarkly::server)
 
 # ##############################################################################
 
@@ -63,10 +65,6 @@ drogon_create_views(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/views
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
                                    ${CMAKE_CURRENT_SOURCE_DIR}/models)
-
-# link_directories(/usr/local/lib)
-# target_link_libraries(${PROJECT_NAME} PRIVATE launchdarkly::server)
-
 
 target_sources(${PROJECT_NAME}
                PRIVATE
