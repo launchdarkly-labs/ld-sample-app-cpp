@@ -1,4 +1,5 @@
 #include <drogon/drogon.h>
+#include "LDClient.h"
 
 #include <cstring>
 #include <iostream>
