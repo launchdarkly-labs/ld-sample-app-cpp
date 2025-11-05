@@ -18,6 +18,6 @@ private:
     const char *getSdkKey();
 
 public:
-    LDClient(const LDClient &inst) = delete;
+    // LDClient(const LDClient &inst) = delete;
     static LDClient *getInstance();
 };
