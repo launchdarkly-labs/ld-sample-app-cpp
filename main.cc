@@ -10,7 +10,10 @@ using namespace drogon;
 
 int main()
 {
-    auto client = *LDClient::getInstance();
+    auto client = *LDClient.getInstance();
+
+    client.Identify(ContextBuilder("user-key").Build());
+    bool showFeature = client.BoolVariation(FEATURE_FLAG_KEY, false);
 
     app().registerHandler(
         "/",
@@ -19,7 +22,11 @@ int main()
                 LOG_INFO << "connected:"
                         << (request->connected() ? "true" : "false");
                 auto resp = HttpResponse::newHttpResponse();
-                resp->setBody("Hello, World!");
+                if (showFeature) {
+                    resp->setBody("Hello, LaunchDarkly!");
+                } else {
+                    resp->setBody("Hello, World!");
+                }
                 callback(resp);
             },
         {Get});
