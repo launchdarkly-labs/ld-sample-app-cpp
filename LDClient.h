@@ -18,9 +18,9 @@ private:
 protected:
     LDClient();
     static LDClient *instance;
-    Client client;
 
 public:
     // LDClient(const LDClient &inst) = delete;
     static LDClient *getInstance();
+    Client *client;
 };
