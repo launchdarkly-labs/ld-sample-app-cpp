@@ -15,7 +15,7 @@ using namespace launchdarkly::server_side;
 
 int main()
 {
-    Client client = LDClient::getInstance()->client;
+    Client client = LDClient::getInstance().client;
 
     auto const context = ContextBuilder().Kind("user", "example-user-key").Name("Sandy").Build();
     client.Identify(context);
