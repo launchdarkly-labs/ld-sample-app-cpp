@@ -61,5 +61,5 @@ LDClient *LDClient::getInstance()
     {
         instance = new LDClient();
     }
-    return instance->client;
+    return instance;
 }

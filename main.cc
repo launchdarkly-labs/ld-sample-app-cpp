@@ -11,11 +11,11 @@
 
 using namespace drogon;
 using namespace launchdarkly;
-using namespace launchdarkly.server_side;
+using namespace launchdarkly::server_side;
 
 int main()
 {
-    LDClient *client = LDClient::getInstance();
+    Client *client = LDClient::getInstance()->client;
 
     client->Identify(ContextBuilder("user-key").Build());
     bool showFeature = client->BoolVariation(FEATURE_FLAG_KEY, false);
