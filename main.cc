@@ -8,6 +8,19 @@
 
 int main()
 {
+    LDClient client = *LDClient::getInstance();
+
+    drogon::app().registerHandler(
+        "/",
+        [](const HttpRequestPtr &request,
+            std::function<void(const HttpResponsePtr &)> &&callback) {
+                LOG_INFO << "connected:"
+                        << (request->connected() ? "true" : "false");
+                auto resp = HttpResponse::newHttpResponse();
+                resp->setBody("Hello, World!");
+                callback(resp);
+            },
+        {Get});
     // Set HTTP listener address and port
     drogon::app().addListener("0.0.0.0", 5555);
     // Load config file
