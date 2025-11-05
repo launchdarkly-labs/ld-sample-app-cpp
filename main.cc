@@ -15,11 +15,11 @@ using namespace launchdarkly::server_side;
 
 int main()
 {
-    Client *client = LDClient::getInstance()->client;
+    Client client = LDClient::getInstance()->client;
 
     auto const context = ContextBuilder().Kind("user", "example-user-key").Name("Sandy").Build();
-    client->Identify(context);
-    bool showFeature = client->BoolVariation(context, FEATURE_FLAG_KEY, false);
+    client.Identify(context);
+    bool showFeature = client.BoolVariation(context, FEATURE_FLAG_KEY, false);
 
     app().registerHandler(
         "/",
