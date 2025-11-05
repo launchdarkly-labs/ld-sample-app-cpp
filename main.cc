@@ -19,7 +19,7 @@ int main()
 
     auto const context = ContextBuilder().Kind("user", "example-user-key").Name("Sandy").Build();
     client->Identify(context);
-    bool showFeature = client->BoolVariation(FEATURE_FLAG_KEY, false);
+    bool showFeature = client->BoolVariation(context, FEATURE_FLAG_KEY, false);
 
     app().registerHandler(
         "/",
