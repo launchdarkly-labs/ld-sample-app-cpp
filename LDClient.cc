@@ -21,8 +21,8 @@ LDClient::LDClient()
         std::exit(1);
     }
 
-    auto client = Client(std::move(*config));
-    auto start_result = client.StartAsync();
+    this->client = Client(std::move(*config));
+    auto start_result = this->client.StartAsync();
     auto const status = start_result.wait_for(std::chrono::milliseconds(INIT_TIMEOUT_MILLISECONDS));
 
     if (status == std::future_status::ready)
@@ -57,9 +57,9 @@ const char *LDClient::getSdkKey()
 
 LDClient *LDClient::getInstance()
 {
-    if (!instance)
+    if (instance == nullptr)
     {
         instance = new LDClient();
     }
-    return instance;
+    return instance->client;
 }

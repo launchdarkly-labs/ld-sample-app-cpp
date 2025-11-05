@@ -13,9 +13,12 @@ using namespace launchdarkly::server_side;
 class LDClient
 {
 private:
-    static LDClient *instance;
-    LDClient();
     const char *getSdkKey();
+
+protected:
+    LDClient();
+    static LDClient *instance;
+    Client client;
 
 public:
     // LDClient(const LDClient &inst) = delete;

@@ -1,3 +1,6 @@
+#include <launchdarkly/context_builder.hpp>
+#include <launchdarkly/server_side/client.hpp>
+#include <launchdarkly/server_side/config/config_builder.hpp>
 #include <drogon/drogon.h>
 #include "LDClient.h"
 
@@ -7,10 +10,12 @@
 #define FEATURE_FLAG_KEY "test-flag"
 
 using namespace drogon;
+using namespace launchdarkly;
+using namespace launchdarkly.server_side;
 
 int main()
 {
-    auto client = LDClient::getInstance();
+    LDClient *client = LDClient::getInstance();
 
     client->Identify(ContextBuilder("user-key").Build());
     bool showFeature = client->BoolVariation(FEATURE_FLAG_KEY, false);
