@@ -17,7 +17,8 @@ int main()
 {
     Client *client = LDClient::getInstance()->client;
 
-    client->Identify(ContextBuilder("user-key").Build());
+    auto const context = ContextBuilder().Kind("user", "example-user-key").Name("Sandy").Build();
+    client->Identify(context);
     bool showFeature = client->BoolVariation(FEATURE_FLAG_KEY, false);
 
     app().registerHandler(
