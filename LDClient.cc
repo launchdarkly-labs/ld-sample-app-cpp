@@ -21,8 +21,8 @@ LDClient::LDClient()
         std::exit(1);
     }
 
-    this->client = Client(std::move(*config));
-    auto start_result = this->client.StartAsync();
+    this.client = Client(std::move(*config));
+    auto start_result = this.client.StartAsync();
     auto const status = start_result.wait_for(std::chrono::milliseconds(INIT_TIMEOUT_MILLISECONDS));
 
     if (status == std::future_status::ready)
