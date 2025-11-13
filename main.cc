@@ -35,7 +35,7 @@ int main()
                 if (showFeature) {
                     resp->setBody("Hello, LaunchDarkly!");
                 } else {
-                    resp->setBody("Hello, World!");
+                    resp->setBody("Hello, Drogon!");
                 }
                 callback(resp);
             },
