@@ -7,7 +7,7 @@
 #include <cstring>
 #include <iostream>
 
-#define FEATURE_FLAG_KEY "test-flag"
+#define FEATURE_FLAG_KEY "first-feature"
 
 using namespace drogon;
 using namespace launchdarkly;
@@ -20,15 +20,15 @@ int main()
 
     auto const context = ContextBuilder().Kind("user", "example-user-key").Name("Sandy").Build();
     client.Identify(context);
-    bool showFeature = client.BoolVariation(context, FEATURE_FLAG_KEY, false);
 
     app().registerHandler(
         "/",
-        [showFeature](const HttpRequestPtr &request,
+        [](const HttpRequestPtr &request,
             std::function<void(const HttpResponsePtr &)> &&callback) {
                 LOG_INFO << "connected:"
                         << (request->connected() ? "true" : "false");
                 auto resp = HttpResponse::newHttpResponse();
+                bool showFeature = client.BoolVariation(context, FEATURE_FLAG_KEY, false);
                 if (showFeature) {
                     resp->setBody("Hello, LaunchDarkly!");
                 } else {
