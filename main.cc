@@ -23,14 +23,14 @@ int main()
 
     app().registerHandler(
         "/",
-        [c_client = std::shared_ptr(client), c_context = context](const HttpRequestPtr &request,
+        [&client, c_context = context](const HttpRequestPtr &request,
             std::function<void(const HttpResponsePtr &)> &&callback) {
                 LOG_INFO << "connected:"
                         << (request->connected() ? "true" : "false");
                 auto resp = HttpResponse::newHttpResponse();
                 resp->addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 resp->addHeader("Pragma", "no-cache"); // For backward compatibility with HTTP 1.0
-                bool showFeature = c_client->BoolVariation(c_context, FEATURE_FLAG_KEY, false);
+                bool showFeature = client.BoolVariation(c_context, FEATURE_FLAG_KEY, false);
                 std::cout << showFeature << std::endl;
                 if (showFeature) {
                     resp->setBody("Hello, LaunchDarkly!");
