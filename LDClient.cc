@@ -21,7 +21,7 @@ Config LDClient::buildConfig()
 
     auto config_builder = ConfigBuilder(sdk_key);
  
-    using LoggingBuilder = config::builders::LoggingBuilder;
+    using LoggingBuilder = server_side::config::builders::LoggingBuilder;
     config_builder.Logging().Logging(
         LoggingBuilder::BasicLogging().Tag("ArbitraryLogTag").Level(LogLevel::kDebug)
     );
