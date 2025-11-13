@@ -28,6 +28,8 @@ int main()
                 LOG_INFO << "connected:"
                         << (request->connected() ? "true" : "false");
                 auto resp = HttpResponse::newHttpResponse();
+                resp->addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                resp->addHeader("Pragma", "no-cache"); // For backward compatibility with HTTP 1.0
                 bool showFeature = client.BoolVariation(context, FEATURE_FLAG_KEY, false);
                 if (showFeature) {
                     resp->setBody("Hello, LaunchDarkly!");
