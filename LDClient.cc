@@ -19,17 +19,19 @@ Config LDClient::buildConfig()
         std::exit(1);
     }
 
-    auto config = ConfigBuilder(sdk_key).Build();
-    if (!config)
+    auto config_builder = ConfigBuilder(sdk_key);
+    if (!config_builder)
     {
-        std::cout << "*** config is invalid: " << config.error() << std::endl;
+        std::cout << "*** config is invalid: " << config_builder.error() << std::endl;
         std::exit(1);
     }
     
-    using LoggingBuilder = server_side::config::builders::LoggingBuilder;
-    config.Logging().Logging(
+    using LoggingBuilder = config::builders::LoggingBuilder;
+    config_builder.Logging().Logging(
         LoggingBuilder::BasicLogging().Tag("ArbitraryLogTag").Level(LogLevel::kDebug)
     );
+
+    auto config = config_builder.Build();
 
     return std::move(*config);
 }
