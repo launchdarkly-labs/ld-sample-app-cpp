@@ -10,9 +10,14 @@ using namespace launchdarkly::server_side;
 
 LDClient *LDClient::instance = nullptr;
 
-LDClient::LDClient()
+Config LDClient::buildConfig()
 {
-    const char *sdk_key = getSdkKey();
+    const char *sdk_key = std::getenv("LD_SDK_KEY");
+    if (!sdk_key || !strlen(sdk_key))
+    {
+        std::cout << "*** SDK key not found" << std::endl;
+        std::exit(1);
+    }
 
     auto config = ConfigBuilder(sdk_key).Build();
     if (!config)
@@ -21,7 +26,12 @@ LDClient::LDClient()
         std::exit(1);
     }
 
-    this->client = Client(std::move(*config));
+    return std::move(*config);
+}
+
+LDClient::LDClient()
+    : client(buildConfig())
+{
     auto start_result = this->client.StartAsync();
     auto const status = start_result.wait_for(std::chrono::milliseconds(INIT_TIMEOUT_MILLISECONDS));
 
@@ -44,16 +54,6 @@ LDClient::LDClient()
     }
 }
 
-const char *LDClient::getSdkKey()
-{
-    const char *envvar = std::getenv("LD_SDK_KEY");
-    if (envvar && strlen(envvar))
-    {
-        return envvar;
-    }
-    std::cout << "*** SDK key not found" << std::endl;
-    std::exit(1);
-}
 
 LDClient *LDClient::getInstance()
 {
