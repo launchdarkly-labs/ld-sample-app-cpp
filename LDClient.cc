@@ -25,6 +25,11 @@ Config LDClient::buildConfig()
         std::cout << "*** config is invalid: " << config.error() << std::endl;
         std::exit(1);
     }
+    
+    using LoggingBuilder = server_side::config::builders::LoggingBuilder;
+    config_builder.Logging().Logging(
+    LoggingBuilder::BasicLogging().Tag("ArbitraryLogTag").Level(LogLevel::kDebug)
+    );
 
     return std::move(*config);
 }
