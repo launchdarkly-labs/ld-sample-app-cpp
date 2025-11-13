@@ -22,7 +22,7 @@ int main()
     client.Identify(context);
 
     app().registerHandler(
-        "/",
+        "",
         [&client, c_context = context](const HttpRequestPtr &request,
             std::function<void(const HttpResponsePtr &)> &&callback) {
                 LOG_INFO << "connected:"
