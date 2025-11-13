@@ -27,8 +27,8 @@ Config LDClient::buildConfig()
     }
     
     using LoggingBuilder = server_side::config::builders::LoggingBuilder;
-    config_builder.Logging().Logging(
-    LoggingBuilder::BasicLogging().Tag("ArbitraryLogTag").Level(LogLevel::kDebug)
+    config.Logging().Logging(
+        LoggingBuilder::BasicLogging().Tag("ArbitraryLogTag").Level(LogLevel::kDebug)
     );
 
     return std::move(*config);
