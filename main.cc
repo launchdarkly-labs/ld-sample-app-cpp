@@ -31,6 +31,7 @@ int main()
                 resp->addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 resp->addHeader("Pragma", "no-cache"); // For backward compatibility with HTTP 1.0
                 bool showFeature = client.BoolVariation(context, FEATURE_FLAG_KEY, false);
+                cout << showFeature << endl;
                 if (showFeature) {
                     resp->setBody("Hello, LaunchDarkly!");
                 } else {
@@ -40,11 +41,10 @@ int main()
             },
         {Get});
     // Set HTTP listener address and port
-    app().addListener("0.0.0.0", 5000);
     // Load config file
     // app().loadConfigFile("../config.json");
     // app().loadConfigFile("../config.yaml");
     // Run HTTP framework,the method will block in the internal event loop
-    app().run();
+    app().addListener("0.0.0.0", 5000).run();
     return 0;
 }
