@@ -23,6 +23,18 @@ int main()
 
     app().registerHandler(
         "/",
+        [=](const HttpRequestPtr &req,
+            std::function<void (const HttpResponsePtr &)> &&callback)
+        {
+            HttpViewData data;
+            data.insert("name","SuperDude");
+            auto resp=HttpResponse::newHttpViewResponse("MainView",data);
+            callback(resp);
+        },
+        {Get});
+
+    app().registerHandler(
+        "/main",
         [&client, c_context = context](const HttpRequestPtr &request,
             std::function<void(const HttpResponsePtr &)> &&callback) {
                 LOG_INFO << "connected:"
