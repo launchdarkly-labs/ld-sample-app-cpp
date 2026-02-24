@@ -1,62 +1,61 @@
-#include <launchdarkly/context_builder.hpp>
-#include <launchdarkly/server_side/client.hpp>
-#include <launchdarkly/server_side/config/config_builder.hpp>
 #include <drogon/drogon.h>
 #include "LDClient.h"
 
 #include <cstring>
+#include <cstdlib>
 #include <iostream>
-
-#define FEATURE_FLAG_KEY "first-feature"
+#include <fstream>
+#include <filesystem>
+#include <string>
+#include <boost/algorithm/string.hpp>
 
 using namespace drogon;
-using namespace launchdarkly;
-using namespace launchdarkly::server_side;
 
-int main()
+int main(int argc, char *argv[])
 {
-    LDClient *ldclient = LDClient::getInstance();
-    Client &client = ldclient->client;
+    std::filesystem::path file_path{".env"};
+    if (std::filesystem::exists(file_path)) {
+        std::ifstream file(file_path);
+        if (!file.is_open()) {
+            std::cerr << "Error: Unable to open file " << file_path << std::endl;
+            return 1;
+        }
 
-    auto const context = ContextBuilder().Kind("user", "example-user-key").Name("Sandy").Build();
-    client.Identify(context);
-
-    app().registerHandler(
-        "/",
-        [=](const HttpRequestPtr &req,
-            std::function<void (const HttpResponsePtr &)> &&callback)
-        {
-            HttpViewData data;
-            data.insert("name","SuperDude");
-            auto resp=HttpResponse::newHttpViewResponse("MainView",data);
-            callback(resp);
-        },
-        {Get});
-
-    app().registerHandler(
-        "/main",
-        [&client, c_context = context](const HttpRequestPtr &request,
-            std::function<void(const HttpResponsePtr &)> &&callback) {
-                LOG_INFO << "connected:"
-                        << (request->connected() ? "true" : "false");
-                auto resp = HttpResponse::newHttpResponse();
-                resp->addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                resp->addHeader("Pragma", "no-cache"); // For backward compatibility with HTTP 1.0
-                bool showFeature = client.BoolVariation(c_context, FEATURE_FLAG_KEY, false);
-                std::cout << showFeature << std::endl;
-                if (showFeature) {
-                    resp->setBody("Hello, LaunchDarkly!");
-                } else {
-                    resp->setBody("Hello, Drogon!");
+        std::string line;
+        while (std::getline(file, line)) {
+            boost::trim(line);
+            if (line.empty()) {
+                continue;
+            }
+            if (line.starts_with("#")) {
+                continue;
+            }
+            if (line.find('=') > 0) {
+                std::string key = line.substr(0, line.find('='));
+                std::string value = line.substr(line.find('=') + 1);
+                if (setenv(key.c_str(), value.c_str(), 1) != 0) {
+                    std::cerr << "Error: Unable to set an environment variable from the .env file." << std::endl;
+                    return 1;
                 }
-                callback(resp);
-            },
-        {Get});
-    // Set HTTP listener address and port
-    // Load config file
-    // app().loadConfigFile("../config.json");
-    // app().loadConfigFile("../config.yaml");
-    // Run HTTP framework,the method will block in the internal event loop
-    app().addListener("0.0.0.0", 5000).run();
+            }
+        }
+
+        file.close();
+    } else {
+        std::cout << "Error: The .env file does not exist." << std::endl;
+        return 1;
+    }
+
+    std::ofstream MyFile("./static/js/keys.js");
+    MyFile << "const clientKey = \"" << std::getenv("LD_CLIENT_KEY") << "\";";
+    MyFile.close();
+
+    LDClient *ldclient = LDClient::getInstance();
+
+    app().addListener("0.0.0.0", 3000);
+    // Use executable directory as document root (static/ is copied there by CMake)
+    std::string exeDir = std::filesystem::path(argv[0]).parent_path().string();
+    app().setDocumentRoot(exeDir.empty() ? "./" : exeDir + "/");
+    app().run();
     return 0;
 }

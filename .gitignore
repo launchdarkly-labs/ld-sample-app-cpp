@@ -3,6 +3,9 @@
 
 cpp-sdks/
 .DS_Store
+.env
+static/js/keys.js
+
 
 build/
 ### C ###

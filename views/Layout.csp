@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[ title ]] • Coffee Supply Co.</title>
+    <meta name="description"
+        content="Wholesale supplies for local coffee shops—beans, cups, grinders, espresso machines, syrups and more.">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="static/js/keys.js"></script>
+    <script src="static/js/script.js"></script>
+    <script src="static/js/bundle.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container nav">
+            <a class="brand" href="/" aria-label="Coffee Supply Co. Home">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <span class="title">Coffee Supply Co.</span>
+                    <span class="subtitle">Wholesale Essentials</span>
+                </div>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+            <ul role="menubar" aria-label="Primary">
+                <li role="none"><a role="menuitem" href="/" <%c++ if(@@.get<std::string>("currentPath")=="/") {%>
+                        style="background: rgba(163,90,43,.08);" <%c++}%>>Home</a>
+                </li>
+                <li role="none"><a role="menuitem" href="/about" <%c++ if(@@.get<std::string>("currentPath")=="/about") {%>
+                        style="background: rgba(163,90,43,.08);" <%c++}%>>About</a>
+                </li>
+                <li role="none"><a role="menuitem" href="/products" <%c++ if(@@.get<std::string>("currentPath")=="/products") {%>
+                        style="background: rgba(163,90,43,.08);" <%c++}%>>Products</a>
+                </li>
+                <li role="none"><a role="menuitem" href="/contact" <%c++ if(@@.get<std::string>("currentPath")=="/contact") {%>
+                        style="background: rgba(163,90,43,.08);" <%c++}%>>Contact</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+  [[]]
+
+<footer class="footer">
+    <div class="container">
+        <div class="grid">
+            <div class="card" style="grid-column: span 6;">
+                <h3>Serving Local Cafés</h3>
+                <p class="muted">We deliver quality supplies on time so you can focus on delighting guests.</p>
+            </div>
+            <div class="card" style="grid-column: span 3;">
+                <h3>Contact</h3>
+                <p class="muted">hello@coffeesupply.example<br /> (555) 123-4567</p>
+            </div>
+            <div class="card" style="grid-column: span 3;">
+                <h3>Hours</h3>
+                <p class="muted">Mon–Fri 8:00–6:00<br />Sat 9:00–1:00</p>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <small>© 2025 Coffee Supply Co. • Built with love (and caffeine).</small>
+    </div>
+</footer>
+<script>const clientKey = "[[ clientKey ]]";</script>
+</body>
+
+</html>
+

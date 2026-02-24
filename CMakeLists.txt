@@ -80,4 +80,11 @@ target_sources(${PROJECT_NAME}
 
 # ##############################################################################
 
+# Copy static files to build directory so they are served when app runs from build/
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/static
+        ${CMAKE_CURRENT_BINARY_DIR}/static
+)
+
 add_subdirectory(test)
