@@ -35,7 +35,7 @@ add_executable(${PROJECT_NAME} main.cc)
 
 add_subdirectory(cpp-sdks)
 find_package(Drogon CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon launchdarkly::server)
+target_link_libraries(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined Drogon::Drogon launchdarkly::server)
 
 # ##############################################################################
 

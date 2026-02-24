@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
             if (line.empty()) {
                 continue;
             }
-            if (line.starts_with("#")) {
+            if (line.find("#") == 0) {
                 continue;
             }
             if (line.find('=') > 0) {
