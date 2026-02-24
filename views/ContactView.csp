@@ -1,35 +1,43 @@
 <%layout Layout %>
-<main class="container">
-  <section class="hero">
-    <p class="eyebrow">Let's Talk</p>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Let's Talk</div>
     <h1>Contact Us</h1>
-    <p class="lead">Have a question about products, pricing, or deliveries? Send a note—our team typically replies the same business day.</p>
-  </section>
+    <p class="muted">Have a question about products, pricing, or deliveries? Send a note—our team typically replies the
+      same business day.</p>
+  </div>
+</section>
 
-  <section class="section">
-    <form>
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="shop">Shop Name</label>
-      <input type="text" id="shop" name="shop">
-
+<section class="section">
+  <div class="container">
+    <form action="#" method="post">
+      <div class="form-row">
+        <div>
+          <label for="name">Your Name</label>
+          <input id="name" name="name" placeholder="Jane Barista" required>
+        </div>
+        <div>
+          <label for="shop">Shop Name</label>
+          <input id="shop" name="shop" placeholder="Sunrise Café">
+        </div>
+      </div>
       <div class="form-row">
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required>
         </div>
         <div>
           <label for="phone">Phone</label>
-          <input type="tel" id="phone" name="phone">
+          <input id="phone" name="phone" placeholder="(555) 123-4567">
         </div>
       </div>
-
       <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
-
-      <button type="submit" class="btn">Send Message</button>
+      <textarea id="message" name="message" placeholder="Tell us what you're looking for…"></textarea>
+      <div style="display:flex; gap:.6rem; align-items:center;">
+        <button class="btn" type="submit">Send Message</button>
+        <span class="muted">or email hello@coffeesupply.example</span>
+      </div>
     </form>
-    <p class="muted spacer">or email hello@coffeesupply.example</p>
-  </section>
-</main>
+  </div>
+</section>
