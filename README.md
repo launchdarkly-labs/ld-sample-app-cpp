@@ -59,12 +59,12 @@ cmake --build .
 
 Add LaunchDarkly keys
 
-* Rename `.env.example` to `.env`
+* While still in the `build` directory, rename `.env.example` to `.env`
 * In the `.env` file, replace the fake keys with your LaunchDarkly SDK key and client-side key
 
 ## Run
 
-To run the site, from the build directory:
+To run the site, from the `build` directory:
 
 ```
 ./ld-sample-app-cpp

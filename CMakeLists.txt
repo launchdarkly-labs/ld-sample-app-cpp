@@ -87,4 +87,9 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         ${CMAKE_CURRENT_BINARY_DIR}/static
 )
 
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/.env.example
+    ${CMAKE_CURRENT_BINARY_DIR}/.env.example
+    COPYONLY
+)
 add_subdirectory(test)
